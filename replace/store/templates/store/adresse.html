@@ -1,0 +1,50 @@
+{% extends 'store/base1.html' %}
+
+{% load static %}
+
+{% block title %}
+Adresse de livraison
+{% endblock %}
+
+{% block container %}
+<div class="bg-light p-4">
+    <h4 class="border border-rounded p-2 text-center"> Adresse de livraison </h4>
+    <form method="post">
+        {% csrf_token %}
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+        
+        {% if msg %}
+        <div class="alert alert-success" role="alert">
+            {{msg}}
+        </div>
+        {% endif %}
+        <div class='form-group'>
+            <label for="">Numéro et nom de rue</label>
+            <input type="text" name="numero-nom-rue-1" placeholder="Numéro de voie et nom de la rue" class="form-control" value="{{ customer.adresse_1 }}">
+        </div>
+    
+        <div class='form-group'>
+            <input type="text" name="numero-nom-rue-2" placeholder="Bâtiment, appartement, lot,etc.(falcutatif)" class="form-control" value="{{ customer.adresse_2 }}">
+        </div>
+            
+        <div class="row">
+            <div class='form-group col-lg-6 col-xl-6'>
+                <label>Code postal</label>
+                <input type="text" name="code-postal" class="form-control" value="{{ customer.code_postal }}">
+            </div>
+    
+            <div class='form-group col-lg-6 col-xl-6'>
+                <label for="">Ville</label>
+                <input type="text" name="ville" class="form-control" value="{{ customer.ville }}">
+            </div>
+        </div>
+        <button type="submit" class="row form-control mx-auto btn btn-info rounded-pill border-info">Sauvegarder</button>
+    </form>
+</div>
+ 
+{% endblock %}

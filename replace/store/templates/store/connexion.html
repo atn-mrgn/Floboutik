@@ -1,0 +1,44 @@
+{% extends 'store/base.html' %}
+
+{% block title %}
+Connexion
+{% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    {% if msg %}
+    <div class="alert alert-success" role="alert">{{msg}}</div>
+    {% endif %}
+
+    <div class="p-4 m-4">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mx-auto border border-rounded pt-4 pr-4 pl-4 m-4 ombre-1">
+            <p>Vous n'êtes pas encore insrit?<a href="/inscription/"> cliquez ici</a> pour le faire.</p>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mx-auto border border-rounded pt-4 pr-4 pl-4 pb-4 ombre-1">
+            <h4 class="alert alert-info border border-rounded mx-auto ombre-1 p-4 text-center"> Conectez-vous </h4>
+            <form method="post">
+                {% csrf_token %}
+
+                {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{error}}
+                </div>
+                {% endif %}
+
+                <div class='form-group'>
+                    <label>Email</label>
+                    <input type="email" name="email" placeholder="exemple@gmail.com" value="{{email}}" class="form-control">
+                </div>
+                
+                <div class='form-group'>
+                    <label for="">Mot de passe</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+
+                <button type="submit" class="row form-control mx-auto col-12 btn btn-info rounded-pill border-info">Connexion</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

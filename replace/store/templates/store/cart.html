@@ -1,0 +1,113 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+{% load cart %}
+
+{% block title %}
+Panier
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="border rounded p-4 m-4">
+        <p class="display-4">Votre Panier</p>
+        <hr>
+        {% if products %}
+        <table class="table table-striped table-inverse table-responsive">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>N^0</th>
+                    <th>Image</th>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td scope="row">{{ forloop.counter }}</td>
+                    <td><img src="{{product.image_1.url}}" class="rounded-circle" style="height: 75px;"></td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.prix}} €</td>
+                    <td>{{product|cart_quantity:request.session.cart}}</td>
+                    <td>{{product|price_total:request.session.cart}}€</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">Sous-total :</th>
+                    <th>{{ products|total_cart_price:request.session.cart }},00 €</th>
+                </tr>
+            </tfoot>
+        </table>
+        <table class="table mt-3 mx-auto">
+            <tbody>
+                <tr>
+                    <th scope="row">Expédition </td>
+                    <td>{% if products|total_cart_price:request.session.cart > 100 %}Livraison Gratuite {% else %}15 €{% endif %}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Moyen de paiement </td>
+                    <td>Virement bancaire</td>
+                </tr>
+                <tr>
+                    <th>Total</th>
+                    <th>{{ products|sum:request.session.cart }},00€</th>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+            {% if request.session.user %}
+        <div class="m-3 p-3">
+            <a class="btn btn-info border rounded col-lg-3 float-right" data-toggle="modal" data-target="#staticBackdrop">Commandez</a>
+        </div>
+            {% else %}
+        <div class="m-3 p-3">
+            <a href="/connexion/" class="btn btn-info border rounded col-lg-3 float-right">Commandez</a>
+        </div>
+            {% endif %}
+
+        {% else %}
+        Aucun Produit
+        {% endif %}
+    </div>
+</div>
+
+ <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Adresse de Livraison</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <ul class="list-group">
+                <li class="list-group-item"> <strong>Pays :</strong>{{ customer.pays }}</li>
+                <li class="list-group-item"> <strong>Numéro de voie et nom de la rue :</strong>{{ customer.adresse_1 }}</li>
+                {% if customer.adresse_2 %}
+                <li class="list-group-item"><strong>Bâtiment, appartement, lot,etc.(falcutatif) :</strong>{{ customer.adresse_2 }}</li>
+                {% endif %}
+                <li class="list-group-item"><strong>Code Postal :</strong>{{customer.code_postal}}</li>
+                <li class="list-group-item"><strong>Ville: </strong>{{customer.ville}}</li>
+            </ul>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+            <a href="/adresse/" type="button" class="btn btn-secondary">Modifier</a>
+            <form method="post">
+                {% csrf_token %}
+                <input hidden type="text" value="1" name="valeur">
+                <input type="submit" class="btn btn-info" value="Confirmer">
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--Modal-->
+{% endblock %}

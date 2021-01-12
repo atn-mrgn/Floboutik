@@ -1,0 +1,125 @@
+{% extends 'store/base.html'%}
+
+{% load static %}
+
+{% block content %}
+<div class="container barre">
+    <div class="h3">{% block title %} Contact {% endblock %}</div>
+</div>
+<div class="container barre"></div>
+<div class="container pt-4 pb-4"><p>N'hésitez pas à nous contacter pour toute demande de renseignements. Nous vous répondrons !</p></div>
+<div class="container mr-5">
+    <div class="row">
+        <div class="col-xl-7 col-lg-7 col-md-6">
+        {% if msg %} <div class="alert alert-success">{{ msg}}</div> {% endif %}
+                <form method="post">
+                    {% csrf_token %}
+                    {% if error %}
+                    <div class="alert alert-danger" role="alert">
+                        {{error}}
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label>Nom</label>
+                        <input type="text" class="form-control" name="nom" {% if values %} value="{{ values.name }}" {% else %} value="{{ customer.user }}" {% endif %} placeholder="Entrez votre nom..." style="width:80%;">
+                    </div>
+                    <div class="form-group">
+                        <label>Adresse E-mail</label>
+                        <input type="email" class="form-control" name="email" {% if values %} value="{{ values.email }}" {% else %} value="{{ customer.email }}" {% endif %} placeholder="Votre adrresse mail..." style="width:80%;">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Sujet</label>
+                        <input type="text" class="form-control" name="sujet" value="{{ values.sujet }}" style="width:80%;">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Message</label>
+                        <textarea class="form-control" rows="5" name="message" value="{{ values.message }}" style="width:80%;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-info">Envoyer</button>
+                </form>
+            
+        </div>
+        <div class="col-xl-5 col-lg-5 col-md-6">
+            <div class="row">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="d-inline">
+                                <svg height="70px" viewBox="-84 0 512 512" width="60px" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill='#87cefa' d="m221.789062 394.199219 65.910157-89.898438c29.472656-40.179687 55.921875-80.550781 55.921875-132.492187 0-94.5-76.699219-171.429688-171.109375-171.808594h-.722657c-94.71875 0-171.789062 77.070312-171.789062 171.808594 0 51.929687 26.449219 92.3125 55.921875 132.492187l65.90625 89.898438h-76.636719l-44.421875 117.800781h342.082031l-44.421874-117.800781zm-141.679687-107.640625c-27.410156-37.386719-50.109375-71.828125-50.109375-114.75 0-77.980469 63.25-141.449219 141.128906-141.808594h.679688c78.191406 0 141.8125 63.621094 141.8125 141.808594 0 42.921875-22.699219 77.371094-50.109375 114.75 0 0-88 120.332031-91.582031 125.230468zm-35.960937 195.441406 21.792968-57.800781h77.878906l27.710938 37.789062s23.160156-30.476562 28.480469-37.789062h77.667969l21.789062 57.800781zm0 0"/>
+                                    <path fill='#87cefa' d="m277.621094 171.808594c0-58.347656-47.472656-105.808594-105.8125-105.808594s-105.808594 47.460938-105.808594 105.808594c0 58.339844 47.46875 105.800781 105.808594 105.800781s105.8125-47.460937 105.8125-105.800781zm-105.8125 75.800781c-41.796875 0-75.808594-34-75.808594-75.800781 0-41.796875 34.011719-75.808594 75.808594-75.808594 41.800781 0 75.8125 34.011719 75.8125 75.808594 0 41.800781-34.011719 75.800781-75.8125 75.800781zm0 0"/>
+                                </svg>
+                            </div>
+                            <div class="d-inline">
+                                <div class="d-inline-block""><strong>Adresse</strong><br>
+                                    Rue De La Brigade Alsace-Lorraine,<br>67000 Strasbourg
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row mt-3">
+                            <div class="d-inline">
+                                <svg width="60px" height="70px" viewBox="0 0 16 16" class="bi bi-headset" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill='#87cefa' fill-rule="evenodd" d="M8 1a5 5 0 0 0-5 5v4.5H2V6a6 6 0 1 1 12 0v4.5h-1V6a5 5 0 0 0-5-5z"/>
+                                    <path fill='#87cefa' d="M11 8a1 1 0 0 1 1-1h2v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V8zM5 8a1 1 0 0 0-1-1H2v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V8z"/>
+                                    <path fill='#87cefa' fill-rule="evenodd" d="M13.5 8.5a.5.5 0 0 1 .5.5v3a2.5 2.5 0 0 1-2.5 2.5H8a.5.5 0 0 1 0-1h3.5A1.5 1.5 0 0 0 13 12V9a.5.5 0 0 1 .5-.5z"/>
+                                    <path fill='#87cefa' d="M6.5 14a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1z"/>
+                                </svg>
+                            </div>
+                            <div class="d-inline mt-2 ml-1">
+                                <div class="d-inline-block"><strong>Téléphone</strong>
+                                    <br> 265562654846
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item">
+                        <div class="row mt-3">
+                            <div class="d-inline">
+                                <svg version="1.1" width="60px" height="70px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 511.974 511.974" style="enable-background:new 0 0 511.974 511.974;" xml:space="preserve">
+                                    <g>
+                                        <g>
+                                            <g>
+                                                <path fill='#87cefa' d="M511.872,195.725c-0.053-0.588-0.17-1.169-0.35-1.732c-0.117-0.503-0.28-0.994-0.486-1.468
+                                                    c-0.239-0.463-0.525-0.901-0.853-1.306c-0.329-0.481-0.71-0.924-1.135-1.323c-0.137-0.119-0.196-0.282-0.341-0.401
+                                                    l-82.065-63.735V59.704c0-14.138-11.462-25.6-25.6-25.6h-92.476L271.539,5.355c-9.147-7.134-21.974-7.134-31.121,0
+                                                    l-37.035,28.749h-92.476c-14.138,0-25.6,11.461-25.6,25.6v66.057L3.268,189.496c-0.145,0.12-0.205,0.282-0.341,0.401
+                                                    c-0.425,0.398-0.806,0.842-1.135,1.323c-0.328,0.405-0.614,0.842-0.853,1.306c-0.207,0.473-0.369,0.965-0.486,1.468
+                                                    c-0.178,0.555-0.295,1.127-0.35,1.707c0,0.179-0.102,0.333-0.102,0.512V486.37c0.012,5.428,1.768,10.708,5.009,15.061
+                                                    c0.051,0.077,0.06,0.171,0.119,0.239c0.06,0.068,0.188,0.145,0.273,0.239c4.794,6.308,12.25,10.027,20.173,10.061h460.8
+                                                    c7.954-0.024,15.441-3.761,20.241-10.103c0.068-0.085,0.171-0.111,0.23-0.196c0.06-0.085,0.068-0.162,0.12-0.239
+                                                    c3.241-4.354,4.997-9.634,5.009-15.061V196.237C511.974,196.058,511.881,195.904,511.872,195.725z M250.854,18.82
+                                                    c2.98-2.368,7.2-2.368,10.18,0l19.686,15.283h-49.493L250.854,18.82z M27.725,494.904l223.13-173.321
+                                                    c2.982-2.364,7.199-2.364,10.18,0l223.189,173.321H27.725z M494.908,481.6L271.539,308.117c-9.149-7.128-21.972-7.128-31.121,0
+                                                    L17.041,481.6V209.233L156.877,317.82c3.726,2.889,9.088,2.211,11.977-1.515c2.889-3.726,2.211-9.088-1.515-11.977
+                                                    L25.276,194.018l60.032-46.652v65.937c0,4.713,3.821,8.533,8.533,8.533c4.713,0,8.533-3.821,8.533-8.533v-153.6
+                                                    c0-4.713,3.82-8.533,8.533-8.533h290.133c4.713,0,8.533,3.82,8.533,8.533v153.6c0,4.713,3.82,8.533,8.533,8.533
+                                                    s8.533-3.821,8.533-8.533v-65.937l60.032,46.652l-142.31,110.507c-2.448,1.855-3.711,4.883-3.305,7.928s2.417,5.637,5.266,6.786
+                                                    c2.849,1.149,6.096,0.679,8.501-1.232l140.083-108.774V481.6z"/>
+                                                <path fill='#87cefa' d="M358.374,204.77v-34.133c0-56.554-45.846-102.4-102.4-102.4c-56.554,0-102.4,45.846-102.4,102.4
+                                                    s45.846,102.4,102.4,102.4c4.713,0,8.533-3.82,8.533-8.533s-3.82-8.533-8.533-8.533c-47.128,0-85.333-38.205-85.333-85.333
+                                                    s38.205-85.333,85.333-85.333s85.333,38.205,85.333,85.333v34.133c0,9.426-7.641,17.067-17.067,17.067
+                                                    s-17.067-7.641-17.067-17.067v-34.133c0-4.713-3.82-8.533-8.533-8.533s-8.533,3.82-8.533,8.533
+                                                    c0,18.851-15.282,34.133-34.133,34.133c-18.851,0-34.133-15.282-34.133-34.133s15.282-34.133,34.133-34.133
+                                                    c4.713,0,8.533-3.82,8.533-8.533s-3.82-8.533-8.533-8.533c-22.915-0.051-43.074,15.13-49.354,37.168
+                                                    c-6.28,22.038,2.847,45.565,22.347,57.601c19.5,12.036,44.622,9.65,61.507-5.843c1.858,18.046,17.543,31.464,35.659,30.505
+                                                    C344.25,237.91,358.431,222.912,358.374,204.77z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <div class="d-inline mt-3 ml-1">
+                                <div class="d-inline-block"><strong>Email</strong>
+                                    <br> Info@FloStore.com
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

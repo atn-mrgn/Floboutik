@@ -1,0 +1,117 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+{% load cart %}
+
+{% block title %}{{ prd.name }} {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="container" style="margin: 0  10%;">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="card mb-3" style="width: auto; border: 0px;">
+                        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <img src="{{prd.image_1.url}}" class="card-img-top">
+                                </div>
+                                {% if prd.image_2 %}
+                                <div class="carousel-item">
+                                    <img src="{{prd.image_2.url}}" class="card-img-top">
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6">
+                    <div class="card-body">
+                        <h4 class="h5 mb-3" style="font-size: 17px;">{{prd.name}}</h4>
+                        <p class="card-text" style=" font-size: 30px;"><strong>{{prd.prix}} €</strong></p>
+                            <div class="card-footer p-0 row gutters">
+                                {% if prd|is_in_cart:request.session.cart %}
+                                <div class="row no-gutters col-12">
+                                    <form method="post" class='col-2'>
+                                        {% csrf_token %}
+                                        <input hidden type="text" name='product' value='{{prd.id}}'>
+                                        <input hidden type="text" name='remove' value='True'>
+                                        <input type="submit" value="-" class="btn btn-block btn-light">
+                                    </form>
+                                    <div class="text-center col">{{ prd|cart_quantity:request.session.cart }} dans le panier</div>
+                                    <form method="post" class='col-2'>
+                                        {% csrf_token %}
+                                        <input hidden type="text" name='product' value='{{prd.id}}'>
+                                        <input type="submit" value="+" class="btn btn-block btn-light">
+                                    </form>
+                                </div>
+                                {% else %}
+                                <form method="post" class="btn-block">
+                                    {% csrf_token %}
+                                    <input hidden type="text" name='product' value='{{prd.id}}'>
+                                    <button type="submit" class="btn btn-info form-control p-1 col-12">Ajouter au Panier</button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        
+                            <div class="row" style="margin-top: 50px;">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                    <a class="nav-link bg-light" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Livraison</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link bg-light" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Expédition</a>
+                                    </li>
+                                    <li class="nav-item">
+                                    <a class="nav-link bg-light" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Promo</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content border p-2 col-12" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">La livraison est gratuite et elle est sous 48h ouvrable</div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> Via transport-Layer</div>
+                                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">Bénéficier de 35% de réduction sur tout vos achat .</div>
+                                </div>
+                            </div>   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row col-xl-12 col-lg-12 col-md-12 col-sm-12 mt-3 p-4" style="background-color: #87cefa; border-radius:30px; margin-left: auto; margin-right: auto;">
+            <div>
+                <p>
+                    <h5 style="border-bottom:1px solid ">Description:</h5>
+                    {{prd.short_description}}
+                </p>
+            </div>
+        </div>
+    </div>
+    <p class="mt-5 mb-4"><strong>Produits similaires :</strong></p>
+    <div class="row mt-2 mb-5">
+        {% for sim in similar %}
+            {% if sim.id != prd.id %}
+        <div class="card ml-2" style="min-width: 80px; max-width: 150px; width:auto; border: 0px;">
+            <a href="/boutique/detail/{{sim.id}}">
+                <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="{{sim.image_1.url}}" class="card-img-top">
+                        </div>
+                        {% if sim.image_2 %}
+                        <div class="carousel-item">
+                            <img src="{{sim.image_2.url}}" class="card-img-top">
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            <div class="card-body">
+                <h5 class="h5" style="font-size: 14px;">{{sim.name}}</h5>
+            </div>
+        </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>  
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'store/base1.html' %}
+
+{% load static %}
+
+{% block title %}
+Panier
+{% endblock %}
+
+{% block container %}
+<div class="bg-light p-4">
+    <h4 class="border border-rounded p-2 text-center"> Profile </h4>
+    <form method="post">
+        {% csrf_token %}
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+        {% endif %}
+        
+        {% if msg %}
+        <div class="alert alert-success" role="alert">
+        {{msg}}
+        </div>
+        {% endif %}
+        <div class="container">
+            <div class="row">
+                <div class='form-group col-lg-6 col-xl-6'>
+                    <label>Prénom</label>
+                    <input type="text" name="firstname" class="form-control" value="{{ customer.firstname }}">
+                </div>
+    
+                <div class='form-group col-lg-6 col-xl-6'>
+                    <label>Nom</label>
+                    <input type="text" name="lastname" class="form-control" value="{{ customer.lastname }}">
+                </div>
+            </div>
+            <div class='form-group'>
+                <label for="">Téléphone</label>
+                <input type="text" name="phone" class="form-control" value="{{ customer.phone }}">
+            </div>
+            <div class='form-group'>
+                <label>Email</label>
+                <input type="email" name="email" placeholder="exemple@gmail.com" class="form-control" value="{{ customer.email }}">
+            </div>
+        </div>
+
+        <div class="container mt-4">
+            <div class="h6 text-center mb-4"> Modifier le Mot de Passe</div>
+            <div class='form-group'>
+                <label>Ancien Mot de passe</label>
+                <input type="password" name="last-password" class="form-control">
+            </div>
+            <div class="row">
+                <div class='form-group col-lg-6 col-xl-6'>
+                    <label for="">Nouveau Mot de passe</label>
+                    <input type="password" name="password-1" class="form-control">
+                </div>
+    
+                <div class='form-group col-lg-6 col-xl-6'>
+                    <label for="">Confirmer le nouveau mot de passe</label>
+                    <input type="password" name="password-2" class="form-control">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="row form-control mx-auto btn btn-info rounded-pill border-info">Sauvegarder</button>
+    </form>
+</div>
+ 
+{% endblock %}

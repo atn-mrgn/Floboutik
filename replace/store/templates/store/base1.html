@@ -1,0 +1,30 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-2 mt-5 mb-5">
+            <div class="list-group bg-light">
+                <a href="/tableau_bord/" class="list-group-item list-group-item-action" style="font-weight: bold;">Tableau de bord <i class="fas fa-tachometer-alt"></i></a>
+                <hr>
+                <a href="/commande/" class="list-group-item list-group-item-action" style="font-weight: bold;">Commandes 
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket-fill" viewBox="0 0 16 16">
+                        <path d="M5.071 1.243a.5.5 0 0 1 .858.514L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 6h1.717L5.07 1.243zM3.5 10.5a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3zm2.5 0a.5.5 0 1 0-1 0v3a.5.5 0 0 0 1 0v-3z"/>
+                    </svg>
+                </a>
+                <hr>
+                <a href="/adresse/" class="list-group-item list-group-item-action" style="font-weight: bold;">Adresse <i class="far fa-address-card"></i></a>
+                <hr>
+                <a href="/profile/" class="list-group-item list-group-item-action" style="font-weight: bold;">Profile <i class="far fa-user"></i></a>
+                <hr>
+                <a href="/deconnexion/" class="list-group-item list-group-item-action" style="font-weight: bold;">Déconnexion <i class="fas fa-sign-out-alt"></i></a>
+            </div>
+        </div>
+        <div class="col-xl-10 col-lg-10 col-md-10 p-5 mt-3 mb-5">
+            {% block container %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
