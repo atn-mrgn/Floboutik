@@ -1,6 +1,6 @@
 # Floboutik
 
-# E-commerce website project
+## E-commerce website project
 
 Il s'agit d'un site web de vente en ligne basé sur les outils suivant:
 
